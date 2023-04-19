@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class Task: Codable {
+    var name: String = ""
+    var completed: Bool = false
+}
