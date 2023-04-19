@@ -9,11 +9,16 @@ import UIKit
 
 class ListViewController: UITableViewController {
 
-    var listNamesArray = ["TEST", "Heloo", "my item"]
+    var listNamesArray = ["List1", "List_2", "3 list"]
+    
+    var defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        if let items = defaults.array(forKey: "DailyListKey") as? [String]{
+            listNamesArray = items
+        }
     }
     
     //Methods to populate data in the tableView
@@ -50,6 +55,10 @@ class ListViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "Add List", style: .default) { action in
             self.listNamesArray.append(listName.text!)
+            
+            self.defaults.set(self.listNamesArray, forKey: "DailyListKey")
+            
+            
             self.tableView.reloadData()
         }
         newListAlert.addTextField { newListFeild in
