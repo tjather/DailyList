@@ -14,6 +14,7 @@
 		BC5C547829ED897B00010D4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC5C547729ED897B00010D4A /* Assets.xcassets */; };
 		BC5C547B29ED897B00010D4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC5C547929ED897B00010D4A /* LaunchScreen.storyboard */; };
 		BC9001BF29F1869600204E29 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9001BE29F1869600204E29 /* Category.swift */; };
+		BC9001C129F1A81500204E29 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9001C029F1A81500204E29 /* CategoryViewController.swift */; };
 		BCEF2EBE29F0755F00E068D8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF2EBD29F0755F00E068D8 /* Task.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		BC5C547A29ED897B00010D4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC5C547C29ED897B00010D4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC9001BE29F1869600204E29 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		BC9001C029F1A81500204E29 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		BCEF2EBD29F0755F00E068D8 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E2E544A5E796A2019D9448EF /* Pods-DailyList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyList.debug.xcconfig"; path = "Target Support Files/Pods-DailyList/Pods-DailyList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				BC5C547229ED897A00010D4A /* ListViewController.swift */,
+				BC9001C029F1A81500204E29 /* CategoryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC9001C129F1A81500204E29 /* CategoryViewController.swift in Sources */,
 				BCEF2EBE29F0755F00E068D8 /* Task.swift in Sources */,
 				BC5C547329ED897A00010D4A /* ListViewController.swift in Sources */,
 				BC5C546F29ED897A00010D4A /* AppDelegate.swift in Sources */,

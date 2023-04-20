@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DailyList-->
+        <!--Tasks-->
         <scene sceneID="LxC-Wb-9sw">
             <objects>
                 <tableViewController id="hWV-7y-zNt" customClass="ListViewController" customModule="DailyList" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,7 +25,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" id="WpM-SI-Xuf">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" id="WpM-SI-Xuf">
                                 <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WpM-SI-Xuf" id="tsU-eR-Icn">
@@ -39,7 +39,7 @@
                             <outlet property="delegate" destination="hWV-7y-zNt" id="6GF-Qw-VEn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="DailyList" id="sLR-KO-pwo">
+                    <navigationItem key="navigationItem" title="Tasks" id="sLR-KO-pwo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aZR-Hz-t8f">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
@@ -50,18 +50,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RH5-Td-nhi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1760.8695652173915" y="142.63392857142856"/>
+            <point key="canvasLocation" x="2725" y="143"/>
         </scene>
-        <!--Table View Controller-->
+        <!--DailyList-->
         <scene sceneID="4Ro-Jl-Ao7">
             <objects>
-                <tableViewController id="JEV-jc-TQ7" sceneMemberID="viewController">
+                <tableViewController id="JEV-jc-TQ7" customClass="CategoryViewController" customModule="DailyList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="V9D-oC-Fst">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1LJ-FU-gLd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="1LJ-FU-gLd">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1LJ-FU-gLd" id="0e2-Hf-Qbm">
@@ -75,10 +75,21 @@
                             <outlet property="delegate" destination="JEV-jc-TQ7" id="geQ-pb-Bvp"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="DailyList" id="2ol-2S-oep">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="COT-1G-3mr">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="addCategory:" destination="JEV-jc-TQ7" id="6po-HI-xFm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="hWV-7y-zNt" kind="show" identifier="viewTasks" id="9uC-sY-Cuf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4sA-6O-vVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="143"/>
+            <point key="canvasLocation" x="1783" y="143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5wJ-a8-WVX">
@@ -98,7 +109,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="hWV-7y-zNt" kind="relationship" relationship="rootViewController" id="n4w-L6-f70"/>
+                        <segue destination="JEV-jc-TQ7" kind="relationship" relationship="rootViewController" id="m9q-nd-RH8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BCB-s8-Xim" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -106,6 +117,7 @@
             <point key="canvasLocation" x="850.72463768115949" y="142.63392857142856"/>
         </scene>
     </scenes>
+    <color key="tintColor" systemColor="labelColor"/>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

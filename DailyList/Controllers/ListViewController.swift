@@ -6,73 +6,89 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ListViewController: UITableViewController {
 
-    var tasksArray = [Task]()
+    let realm = try! Realm()
+
+    var tasksResults: Results<Task>?
     
-    let tasksFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Tasks.plist")
+    var chosenCategory: Category?{
+        didSet{
+            loadTasks()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        loadTasks()
-    }
+}
     
     //Methods to populate data in the tableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasksArray.count
+        if chosenCategory?.tasks.count == 0{
+            return 1
+        } else{
+            return tasksResults?.count ?? 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
-        
-        let task = tasksArray[indexPath.row]
-        
-        cell.textLabel?.text = task.name
-        
-        if task.completed == false {
-            cell.accessoryType = .none
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath)
+        if chosenCategory?.tasks.count == 0{
+            cell.textLabel?.text = "You currently have no tasks"
         }else{
-            cell.accessoryType = .checkmark
+            if let task = tasksResults?[indexPath.row] {
+                cell.textLabel?.text = task.name
+                
+                if task.completed == false {
+                    cell.accessoryType = .none
+                }else{
+                    cell.accessoryType = .checkmark
+                }
+            }else{
+                cell.textLabel?.text = "You currently have no tasks"
+            }
         }
-        
+            
         return cell
     }
     
     //Delegate for tableView
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tasksArray[indexPath.row].completed = !tasksArray[indexPath.row].completed
-        
-        saveTasks()
-                
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    //Saving the models
-    func saveTasks(){
-        let encoder = PropertyListEncoder()
-        
-        do{
-            let data = try encoder.encode(tasksArray)
-            try data.write(to: tasksFilePath!)
-        }catch{
-            print(error)
-        }
-        
-        self.tableView.reloadData()
-    }
-    
-    //Loading the models
-    func loadTasks(){
-        if let data = try? Data(contentsOf: tasksFilePath!) {
-            let decoder = PropertyListDecoder()
+        if let task = tasksResults?[indexPath.row]{
             do{
-                tasksArray = try decoder.decode([Task].self, from: data)
+                try realm.write{
+                    task.completed = !task.completed
+                }
             }catch{
                 print(error)
             }
         }
+        tableView.reloadData()
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //Saving the models
+    func saveTask(task: Task, current: Category){
+        do{
+            try realm.write{
+                current.tasks.append(task)
+            }
+        }catch{
+            print(error)
+        }
+
+        self.tableView.reloadData()
+    }
+    
+    
+    //Loading the models
+    func loadTasks(){
+        tasksResults = chosenCategory?.tasks.sorted(byKeyPath: "name", ascending: true)
+        
+        tableView.reloadData()
     }
     
     //Add items functionality
@@ -82,13 +98,13 @@ class ListViewController: UITableViewController {
         let newListAlert = UIAlertController(title: "Add New DailyList Task", message: "", preferredStyle: .alert)
         
         let addAction = UIAlertAction(title: "Add Task", style: .default) { action in
-            let newTask = Task()
-            newTask.name = listName.text!
-            
-            self.tasksArray.append(newTask)
-        
-            self.saveTasks()
+            if let currentCategory = self.chosenCategory {
+                let newTask = Task()
+                newTask.name = listName.text!
+                self.saveTask(task: newTask, current: currentCategory)
+            }
         }
+        
         newListAlert.addTextField { newListFeild in
             newListFeild.placeholder = "Create new task"
             listName = newListFeild
