@@ -15,7 +15,7 @@ class ListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         loadTasks()
     }
     
@@ -97,7 +97,12 @@ class ListViewController: UITableViewController {
         newListAlert.addAction(addAction)
         
         present(newListAlert, animated: true, completion: nil)
-        
     }
 }
+
+//extension ListViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        <#code#>
+//    }
+//}
 

@@ -6,6 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
+
+//class Task: Object {
+//    @objc dynamic var name: String = ""
+//    @objc dynamic var completed: Bool = false
+//    var assignedCategory = LinkingObjects(fromType: Category.self, property: "items")
+//}
 
 class Task: Codable {
     var name: String = ""
