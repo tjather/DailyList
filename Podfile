@@ -7,5 +7,6 @@ target 'DailyList' do
   # Pods for DailyList
 
 pod 'RealmSwift'
+pod 'SwipeCellKit'
 
 end

@@ -3,12 +3,12 @@
 //  DailyList
 //
 //  Created by Talha on 4/10/23.
-//
+// Uses a SwipeCellKit Library from https://github.com/SwipeCellKit/SwipeCellKit
 
 import UIKit
 import RealmSwift
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: TableViewController {
 
     let realm = try! Realm()
     
@@ -30,14 +30,14 @@ class CategoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        
+        let cell  = super.tableView(tableView, cellForRowAt: indexPath)
+
         if categoriesResults?.count == 0 {
             cell.textLabel?.text = "You currently have no categories"
         }else{
             cell.textLabel?.text = categoriesResults?[indexPath.row]["name"] as? String ?? "You currently have no categories"
         }
-        
+                
         return cell
     }
     
@@ -62,6 +62,19 @@ class CategoryViewController: UITableViewController {
         }
         
         self.tableView.reloadData()
+    }
+    
+    //Deleting the models
+    override func deleteCell(at indexPath: IndexPath){
+        if let deletedCategory = self.categoriesResults?[indexPath.row]{
+            do{
+                try self.realm.write{
+                    self.realm.delete(deletedCategory)
+                }
+            }catch{
+                print(error)
+            }
+        }
     }
     
     //Loading the models
