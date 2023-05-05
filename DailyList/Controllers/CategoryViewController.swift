@@ -14,6 +14,7 @@ class CategoryViewController: TableViewController {
     
     var categoriesResults: Results<Category>?
     
+    //Template Desgin Pattern for viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +65,7 @@ class CategoryViewController: TableViewController {
         self.tableView.reloadData()
     }
     
-    //Deleting the models
+    //Deleting the models using the Template Desgin Pattern
     override func deleteCell(at indexPath: IndexPath){
         if let deletedCategory = self.categoriesResults?[indexPath.row]{
             do{

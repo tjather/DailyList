@@ -20,9 +20,9 @@ class ListViewController: TableViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-}
+    override func viewWillAppear(_ animated: Bool) {
+        title = chosenCategory!.name
+    }
     
     //Methods to populate data in the tableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,7 +84,7 @@ class ListViewController: TableViewController {
         self.tableView.reloadData()
     }
     
-    //Deleting the models
+    //Deleting the models using the Template Desgin Pattern
     override func deleteCell(at indexPath: IndexPath){
         if let deletedTask = self.tasksResults?[indexPath.row]{
             do{

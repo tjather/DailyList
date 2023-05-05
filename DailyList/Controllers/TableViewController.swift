@@ -10,6 +10,7 @@ import SwipeCellKit
 
 class TableViewController: UITableViewController, SwipeTableViewCellDelegate {
 
+    //Template Desgin Pattern
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +32,7 @@ class TableViewController: UITableViewController, SwipeTableViewCellDelegate {
         return [deleteAction]
     }
 
+    //Template Desgin Pattern
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                 let cell  = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
                 
@@ -39,7 +41,9 @@ class TableViewController: UITableViewController, SwipeTableViewCellDelegate {
                 return cell
     }
     
+    
+    //Template Desgin Pattern
     func deleteCell(at indexPath: IndexPath){
-        //Delete Cells
+        //Delete Cells Base Method
     }
 }
