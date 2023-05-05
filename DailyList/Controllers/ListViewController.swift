@@ -130,6 +130,7 @@ class ListViewController: TableViewController {
     }
 }
 
+//Delegate desgin pattern for search bar
 extension ListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         tasksResults = tasksResults?.filter("name CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "createdOn", ascending: true)

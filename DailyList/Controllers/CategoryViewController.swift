@@ -12,6 +12,9 @@ class CategoryViewController: TableViewController {
 
     let realm = try! Realm()
     
+    //Singleton design pattern
+    let categoriesSingleton = CategoriesSingleton.shared
+    
     var categoriesResults: Results<Category>?
     
     //Template Desgin Pattern for viewDidLoad
@@ -56,32 +59,22 @@ class CategoryViewController: TableViewController {
     
     //Saving the models
     func saveCategory(category: Category){
-        do{
-            try realm.write{realm.add(category)}
-        }catch{
-            print(error)
-        }
+        categoriesSingleton.saveCategory(category: category)
         
         self.tableView.reloadData()
     }
     
     //Deleting the models using the Template Desgin Pattern
     override func deleteCell(at indexPath: IndexPath){
-        if let deletedCategory = self.categoriesResults?[indexPath.row]{
-            do{
-                try self.realm.write{
-                    self.realm.delete(deletedCategory)
-                }
-            }catch{
-                print(error)
-            }
-        }
+        categoriesSingleton.deleteCategory(at: indexPath)
+        self.tableView.reloadData()
+
     }
     
     //Loading the models
     func loadCategories(){
-        categoriesResults = realm.objects(Category.self)
-        
+        categoriesResults = categoriesSingleton.loadCategories()
+
         tableView.reloadData()
     }
     
@@ -106,5 +99,42 @@ class CategoryViewController: TableViewController {
         
         present(newCategoryAlert, animated: true, completion: nil)
     }
-    
 }
+
+//Singleton Design Pattern for categroies
+class CategoriesSingleton {
+    static let shared = CategoriesSingleton()
+    
+    private let realm = try! Realm()
+    
+    private var categoriesResults: Results<Category>?
+    
+    private init() {
+        categoriesResults = realm.objects(Category.self)
+    }
+    
+    func saveCategory(category: Category){
+        do {
+            try realm.write{ realm.add(category) }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteCategory(at indexPath: IndexPath) {
+        if let deletedCategory = self.categoriesResults?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(deletedCategory)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func loadCategories() -> Results<Category>? {
+        return categoriesResults
+    }
+}
+
